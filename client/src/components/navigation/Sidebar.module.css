@@ -1,0 +1,31 @@
+.navBar{
+    /* width: rem(80); */
+    width: 15%;
+    height: 100vh;
+    inset: 0;
+    position: fixed;
+    padding: var(--mantine-spacing-md);
+    display: flex;
+    flex-direction: column;
+    background:light-dark(
+        var(--mantine-color-gray-3),
+        var(--mantine-color-dark-8)
+    ) ;
+    
+}
+
+.link{
+    height: rem(60);
+    width: rem(60 );
+    transition: background-color 200ms ease-in-out;
+    color: light-dark(
+        var(--mantine-color-gray-7),
+        var(--mantine-color-dark-0)
+    );
+    &:hover{
+        background-color: light-dark(
+            var(--mantine-color-gray-2),
+            var(--mantine-color-dark-5)
+        );
+    }
+} 
