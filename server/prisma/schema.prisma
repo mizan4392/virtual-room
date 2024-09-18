@@ -16,7 +16,7 @@ datasource db {
 model Profile {
   id        Int      @id @default(autoincrement())
   name      String
-  imageUri  String
+  imageUrl  String
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

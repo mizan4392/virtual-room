@@ -1,11 +1,11 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 import { Profile } from 'src/profile/profile.types';
 import { Server } from 'src/server/server.types';
 
 @ObjectType()
 export class Member {
-  @Field()
+  @Field(() => ID)
   id: string;
 
   @Field(() => Profile, { nullable: true })

@@ -1,9 +1,9 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Channel, Server } from 'src/server/server.types';
 
 @ObjectType()
 export class Profile {
-  @Field()
+  @Field(() => ID)
   id: string;
   @Field({ nullable: true })
   name: string;

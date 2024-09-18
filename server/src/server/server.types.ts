@@ -1,10 +1,10 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Member } from 'src/member/member.types';
 import { Profile } from 'src/profile/profile.types';
 
 @ObjectType()
 export class Channel {
-  @Field()
+  @Field(() => ID)
   id: string;
   @Field({ nullable: true })
   name: string;
@@ -35,7 +35,7 @@ registerEnumType(ChannelType, {
 
 @ObjectType()
 export class Server {
-  @Field()
+  @Field(() => ID)
   id: string;
   @Field()
   name: string;
