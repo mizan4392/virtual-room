@@ -1,6 +1,6 @@
 .navBar{
-    /* width: rem(80); */
-    width: 10%;
+    width: rem(80);
+    /* width: 20%; */
     height: 100vh;
     inset: 0;
     position: fixed;

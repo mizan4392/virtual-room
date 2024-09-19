@@ -16,7 +16,8 @@ import HomePage from "./pages/HomePage.tsx";
 import CreateServerModal from "./components/modals/CreateServerModal.tsx";
 import client from "./apollo-client.ts";
 import { ApolloProvider } from "@apollo/client";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
@@ -60,6 +61,16 @@ createRoot(document.getElementById("root")!).render(
         </BrowserRouter>
       </MantineProvider>
     </ApolloProvider>
+    <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      theme="light"
+    />
   </StrictMode>
 );
 

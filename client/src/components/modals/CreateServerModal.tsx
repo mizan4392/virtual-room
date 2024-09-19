@@ -15,10 +15,24 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import classes from "./CreateServerModal.module.css";
 import { IconUpload, IconX } from "@tabler/icons-react";
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { CREATE_SERVER } from "../../graphql/mutations/server/CreateServer";
+import {
+  CreateServerMutation,
+  CreateServerMutationVariables,
+} from "../../gql/graphql";
+import { useProfileStore } from "../../stores/profile.store";
+import { toast } from "react-toastify";
+
 export default function CreateServerModal() {
   const { isOpen, closeModal } = useModal("CreateServer");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const { profile } = useProfileStore();
+  const [createServer, { loading }] = useMutation<
+    CreateServerMutation,
+    CreateServerMutationVariables
+  >(CREATE_SERVER, {});
   const form = useForm({
     initialValues: {
       name: "",
@@ -30,6 +44,33 @@ export default function CreateServerModal() {
       name: "Server name is required",
     },
   });
+
+  const onSubmit = async () => {
+    if (!form.validate()) return;
+    if (!file) {
+      toast.error("Please upload an image");
+      return;
+    }
+    if (profile) {
+      createServer({
+        variables: {
+          input: {
+            name: form.values.name,
+            profileId: parseInt(profile.id),
+          },
+          file,
+        },
+        onCompleted: () => {
+          toast("Server created successfully");
+          setFile(null);
+          setImagePreview(null);
+          form.reset();
+          closeModal();
+        },
+        refetchQueries: ["GetServers"],
+      });
+    }
+  };
 
   const handleDropZoneChange: DropzoneProps["onDrop"] = (files) => {
     if (files?.length === 0) {
@@ -61,7 +102,7 @@ export default function CreateServerModal() {
       <Text c={"dimmed"}>
         Give your server a name and icon.You can always change these later.
       </Text>
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={form.onSubmit(() => onSubmit())}>
         <Stack>
           <Flex justify={"center"} align={"center"} direction={"column"}>
             {!imagePreview && (
@@ -138,7 +179,7 @@ export default function CreateServerModal() {
             error={form.errors.name}
           />
           <Button
-            disabled={form.values.name.trim() ? false : true}
+            disabled={form.values.name.trim() || !loading ? false : true}
             w="30%"
             type="submit"
             variant="gradient"

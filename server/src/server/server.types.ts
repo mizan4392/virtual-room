@@ -40,7 +40,7 @@ export class Server {
   @Field()
   name: string;
   @Field()
-  imageUri: string;
+  imageUrl: string;
   @Field({ nullable: true })
   inviteCode: string;
 

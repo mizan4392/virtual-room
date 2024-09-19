@@ -52,7 +52,7 @@ enum MemberRole {
 model Member {
   id Int @id @default(autoincrement())
 
-  role      MemberRole
+  role      MemberRole @default(GEST)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 

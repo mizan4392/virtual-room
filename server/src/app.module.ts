@@ -9,6 +9,8 @@ import { ServerModule } from './server/server.module';
 import { ProfileModule } from './profile/profile.module';
 import { MemberModule } from './member/member.module';
 
+import { GlobalModule } from './global.module';
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -27,6 +29,7 @@ import { MemberModule } from './member/member.module';
         };
       },
     }),
+    GlobalModule,
     ServerModule,
     ProfileModule,
     MemberModule,
