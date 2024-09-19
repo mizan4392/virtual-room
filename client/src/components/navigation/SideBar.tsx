@@ -7,6 +7,7 @@ import {
   IconSun,
 } from "@tabler/icons-react";
 import { useModal } from "../../hooks/useModal";
+import { UserButton } from "@clerk/clerk-react";
 export default function SideBar() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { openModal } = useModal("CreateServer");
@@ -40,6 +41,7 @@ export default function SideBar() {
             <IconSun radius={100} />
           )}
         </Button>
+        <UserButton />
       </Stack>
     </nav>
   );

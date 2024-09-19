@@ -14,6 +14,8 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import RootLayout from "./layout/RootLayout.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import CreateServerModal from "./components/modals/CreateServerModal.tsx";
+import client from "./apollo-client.ts";
+import { ApolloProvider } from "@apollo/client";
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -51,11 +53,13 @@ const RouterComponent = () => {
 };
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <MantineProvider>
-      <BrowserRouter>
-        <RouterComponent />
-      </BrowserRouter>
-    </MantineProvider>
+    <ApolloProvider client={client}>
+      <MantineProvider>
+        <BrowserRouter>
+          <RouterComponent />
+        </BrowserRouter>
+      </MantineProvider>
+    </ApolloProvider>
   </StrictMode>
 );
 
