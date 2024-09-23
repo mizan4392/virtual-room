@@ -37,7 +37,6 @@ function RootLayout() {
             },
           },
           onCompleted: (data) => {
-            console.log("Profile created", data);
             setProfile(data.createProfile);
           },
         });

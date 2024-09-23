@@ -15,16 +15,13 @@ import { createWriteStream, existsSync, mkdirSync } from 'fs';
 export class ServerResolver {
   constructor(private readonly serverService: ServerService) {}
 
-  @Query(() => Server)
-  async getServers(
-    @Args('profileId') profileId: number,
-    @Context() ctx: { req: Request },
-  ) {
-    if (!ctx.req?.profile.email) {
+  @Query(() => [Server])
+  async getServers(@Context() ctx: { req: Request }) {
+    if (!ctx.req.profile?.email) {
       throw new BadRequestException('Profile not found');
     }
     return this.serverService.getServerByProfileEmailOfMember(
-      ctx.req.profile.email,
+      ctx.req.profile?.email,
     );
   }
 

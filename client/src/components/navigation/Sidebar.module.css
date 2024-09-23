@@ -7,16 +7,21 @@
     padding: var(--mantine-spacing-md);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background:light-dark(
         var(--mantine-color-gray-3),
         var(--mantine-color-dark-8)
     ) ;
+    border-right: rem(1px) solid light-dark(
+        var(--mantine-color-gray-3),
+        var(--mantine-color-dark-4)
+    );
     
 }
 
 .link{
-    height: rem(60);
-    width: rem(60 );
+    height: rem(50);
+    width: rem(50 );
     transition: background-color 200ms ease-in-out;
     color: light-dark(
         var(--mantine-color-gray-7),
@@ -29,3 +34,8 @@
         );
     }
 } 
+
+.icon{
+    width: fit-content;
+    height: fit-content;
+}
