@@ -9,6 +9,7 @@ import {
   IconTrash,
   IconX,
 } from "@tabler/icons-react";
+import { useModal } from "../../hooks/useModal";
 
 type ServerSideBarHeaderProps = {
   server: Server;
@@ -20,6 +21,8 @@ export default function ServerSideBarHeader({
 }: ServerSideBarHeaderProps) {
   const isAdmin = role === MemberRole.Admin;
   const isModerator = role === MemberRole.Moderator || isAdmin;
+
+  const inviteModal = useModal("InviteModal");
   return (
     <Menu shadow="md" width={rem(300)}>
       <Menu.Target>
@@ -34,7 +37,9 @@ export default function ServerSideBarHeader({
         </Flex>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item rightSection={<IconPlus />}>Invite people</Menu.Item>
+        <Menu.Item rightSection={<IconPlus />} onClick={inviteModal.openModal}>
+          Invite people
+        </Menu.Item>
         {isAdmin && (
           <Menu.Item rightSection={<IconSettings />}>Update server</Menu.Item>
         )}

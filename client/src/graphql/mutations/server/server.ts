@@ -12,3 +12,14 @@ export const CREATE_SERVER = gql`
     }
   }
 `;
+
+export const UPDATE_SERVER_WITH_NEW_INVITE_CODE = gql`
+  mutation UpdateServerWithNewInviteCode($serverId: Float!) {
+    updateServerWithNewInviteCode(serverId: $serverId) {
+      id
+      name
+      imageUrl
+      inviteCode
+    }
+  }
+`;

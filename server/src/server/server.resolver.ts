@@ -5,7 +5,11 @@ import { Server } from './server.types';
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { GraphQLAuthGuard } from 'src/auth/auth.guard';
 import { Request } from 'express';
-import { CreateServerDto } from './server.dto';
+import {
+  CreateChannelOnServerDto,
+  CreateServerDto,
+  UpdateServerDto,
+} from './server.dto';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
@@ -45,6 +49,46 @@ export class ServerResolver {
     const imageUrl = file ? await this.storeImageAndGetUrl(file) : null;
 
     return this.serverService.createServer(input, imageUrl);
+  }
+
+  @Mutation(() => Server)
+  async updateServerWithNewInviteCode(@Args('serverId') serverId: number) {
+    try {
+      return this.serverService.updateServerWithNewInviteCode(serverId);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async updateServer(
+    @Args('input') input: UpdateServerDto,
+    @Args('file', { type: () => GraphQLUpload, nullable: true })
+    file: GraphQLUpload,
+  ) {
+    let imageUrl;
+
+    if (file) {
+      imageUrl = await this.storeImageAndGetUrl(file);
+    }
+
+    try {
+      return this.serverService.updateServer(input, imageUrl);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async createChannel(
+    @Args('input') input: CreateChannelOnServerDto,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.createChannel(input, ctx.req.profile?.email);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
   }
 
   private async storeImageAndGetUrl(file: GraphQLUpload) {

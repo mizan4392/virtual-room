@@ -18,6 +18,12 @@ enum ChannelType {
   VIDEO
 }
 
+input CreateChannelOnServerDto {
+  name: String!
+  serverId: Float!
+  type: String!
+}
+
 input CreateProfileDto {
   email: String!
   imageUrl: String!
@@ -50,8 +56,11 @@ enum MemberRole {
 }
 
 type Mutation {
+  createChannel(input: CreateChannelOnServerDto!): Server!
   createProfile(input: CreateProfileDto!): Profile!
   createServer(file: Upload, input: CreateServerDto!): Server!
+  updateServer(file: Upload, input: UpdateServerDto!): Server!
+  updateServerWithNewInviteCode(serverId: Float!): Server!
 }
 
 type Profile {
@@ -80,6 +89,11 @@ type Server {
   profile: Profile
   profileId: Float!
   updatedAt: String!
+}
+
+input UpdateServerDto {
+  name: String!
+  serverId: Float!
 }
 
 """The `Upload` scalar type represents a file upload."""

@@ -16,7 +16,7 @@ import classes from "./CreateServerModal.module.css";
 import { IconUpload, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_SERVER } from "../../graphql/mutations/server/CreateServer";
+import { CREATE_SERVER } from "../../graphql/mutations/server/server";
 import {
   CreateServerMutation,
   CreateServerMutationVariables,

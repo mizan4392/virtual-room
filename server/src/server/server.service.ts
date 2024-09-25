@@ -1,8 +1,14 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateServerDto } from './server.dto';
+import {
+  CreateServerDto,
+  UpdateServerDto,
+  CreateChannelOnServerDto,
+} from './server.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { MemberRole } from 'src/member/member.types';
+import { ChannelType } from './server.types';
+
 @Injectable()
 export class ServerService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -89,5 +95,77 @@ export class ServerService {
         },
       },
     });
+  }
+
+  async updateServerWithNewInviteCode(serverId: number) {
+    await this.getServerById(serverId);
+
+    return this.prismaService.server.update({
+      where: {
+        id: serverId,
+      },
+      data: {
+        inviteCode: uuidv4(),
+      },
+    });
+  }
+
+  async updateServer(data: UpdateServerDto, imageUrl: string) {
+    await this.getServerById(data.serverId);
+    return this.prismaService.server.update({
+      where: {
+        id: data.serverId,
+      },
+      data: {
+        name: data.name,
+        imageUrl,
+      },
+    });
+  }
+
+  async createChannel(data: CreateChannelOnServerDto, email: string) {
+    const profile = await this.prismaService.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!profile) {
+      throw new BadRequestException('Profile not found');
+    }
+
+    return this.prismaService.server.update({
+      where: {
+        id: data.serverId,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: {
+              in: [MemberRole.ADMIN, MemberRole.MODERATOR],
+            },
+          },
+        },
+      },
+      data: {
+        channels: {
+          create: {
+            name: data.name,
+            type: ChannelType[data.type],
+            profileId: profile.id,
+          },
+        },
+      },
+    });
+  }
+
+  async getServerById(serverId: number) {
+    const server = await this.prismaService.server.findUnique({
+      where: {
+        id: serverId,
+      },
+    });
+    if (!server) {
+      throw new BadRequestException('Server not found');
+    }
+    return server;
   }
 }
