@@ -3,12 +3,12 @@
 # ------------------------------------------------------
 
 type Channel {
-  createdAt: String!
+  createdAt: String
   id: ID!
   members: [Member!]
   name: String
   type: ChannelType!
-  updatedAt: String!
+  updatedAt: String
 }
 
 """Defines the type of channel"""

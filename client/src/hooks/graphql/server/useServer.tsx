@@ -45,7 +45,7 @@ export const useServer = () => {
   );
 
   const role = server?.getServer.members?.find(
-    (member) => member?.profileId === profileId
+    (member) => member?.profileId.toString() === profileId
   )?.role;
 
   return {

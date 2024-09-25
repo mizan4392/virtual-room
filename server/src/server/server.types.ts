@@ -12,10 +12,10 @@ export class Channel {
   @Field(() => ChannelType)
   type: ChannelType;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: string;
 
-  @Field()
+  @Field({ nullable: true })
   updatedAt: string;
 
   @Field(() => [Member], { nullable: true })

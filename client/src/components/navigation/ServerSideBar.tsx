@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function ServerSideBar() {
   const navigate = useNavigate();
   const { serverId, memberId, channelId } = useParams();
-  const { textChannels } = useServer();
+  const { textChannels, server, role } = useServer();
 
   useEffect(() => {
     if (!channelId && !memberId && textChannels.length > 0) {
@@ -15,10 +15,11 @@ export default function ServerSideBar() {
       );
     }
   }, [memberId, channelId, textChannels]);
+  if (!server || !role) return null;
 
   return (
     <nav className={classes.navBar}>
-      <ServerSideBarHeader />
+      <ServerSideBarHeader server={server} role={role} />
     </nav>
   );
 }
