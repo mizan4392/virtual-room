@@ -16,6 +16,7 @@ const documents = {
     "\n  mutation CreateProfile($input: CreateProfileDto!) {\n    createProfile(input: $input) {\n      id\n      imageUrl\n      name\n      email\n    }\n  }\n": types.CreateProfileDocument,
     "\n  mutation CreateServer($input: CreateServerDto!, $file: Upload!) {\n    createServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n      members {\n        id\n      }\n    }\n  }\n": types.CreateServerDocument,
     "\n  query GetServers {\n    getServers {\n      id\n      name\n      imageUrl\n    }\n  }\n": types.GetServersDocument,
+    "\n  query GetServer($id: Float!) {\n    getServer(id: $id) {\n      id\n      profileId\n      name\n      imageUrl\n      inviteCode\n      members {\n        id\n        role\n        profileId\n        profile {\n          id\n          name\n          imageUrl\n          email\n        }\n      }\n      channels {\n        id\n        name\n        type\n        members {\n          id\n          role\n          profileId\n          profile {\n            id\n            name\n            imageUrl\n            email\n          }\n        }\n      }\n      profile {\n        id\n        name\n        imageUrl\n        email\n      }\n    }\n  }\n": types.GetServerDocument,
 };
 
 /**
@@ -44,6 +45,10 @@ export function graphql(source: "\n  mutation CreateServer($input: CreateServerD
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetServers {\n    getServers {\n      id\n      name\n      imageUrl\n    }\n  }\n"): (typeof documents)["\n  query GetServers {\n    getServers {\n      id\n      name\n      imageUrl\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetServer($id: Float!) {\n    getServer(id: $id) {\n      id\n      profileId\n      name\n      imageUrl\n      inviteCode\n      members {\n        id\n        role\n        profileId\n        profile {\n          id\n          name\n          imageUrl\n          email\n        }\n      }\n      channels {\n        id\n        name\n        type\n        members {\n          id\n          role\n          profileId\n          profile {\n            id\n            name\n            imageUrl\n            email\n          }\n        }\n      }\n      profile {\n        id\n        name\n        imageUrl\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetServer($id: Float!) {\n    getServer(id: $id) {\n      id\n      profileId\n      name\n      imageUrl\n      inviteCode\n      members {\n        id\n        role\n        profileId\n        profile {\n          id\n          name\n          imageUrl\n          email\n        }\n      }\n      channels {\n        id\n        name\n        type\n        members {\n          id\n          role\n          profileId\n          profile {\n            id\n            name\n            imageUrl\n            email\n          }\n        }\n      }\n      profile {\n        id\n        name\n        imageUrl\n        email\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

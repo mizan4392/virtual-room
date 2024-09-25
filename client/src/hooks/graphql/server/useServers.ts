@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 
-import { GET_SERVERS } from "../../../graphql/queries/GetServers";
+import { GET_SERVERS } from "../../../graphql/queries/Servers";
 export function useServers() {
   const { data: servers, loading } = useQuery(GET_SERVERS);
 

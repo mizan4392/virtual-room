@@ -25,6 +25,17 @@ export class ServerResolver {
     );
   }
 
+  @Query(() => Server)
+  async getServer(
+    @Args('id', { nullable: true }) id: number,
+    @Context() ctx: { req: Request },
+  ) {
+    if (!ctx.req.profile?.email) {
+      throw new BadRequestException('Profile not found');
+    }
+    return this.serverService.getServer(id, ctx.req.profile?.email);
+  }
+
   @Mutation(() => Server)
   async createServer(
     @Args('input') input: CreateServerDto,

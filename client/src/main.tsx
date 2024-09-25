@@ -18,6 +18,13 @@ import client from "./apollo-client.ts";
 import { ApolloProvider } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import CreateChannelModal from "./components/modals/CreateChannelModal.tsx";
+
+import ServerLayout from "./layout/ServerLayout.tsx";
+import ChannelPage from "./pages/ChannelPage.tsx";
+import ChannelLayout from "./layout/ChannelLayout.tsx";
+
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
@@ -44,6 +51,31 @@ const RouterComponent = () => {
               <ProtectedRoutes>
                 <CreateServerModal />
                 <HomePage />
+              </ProtectedRoutes>
+            }
+          />
+        </Route>
+        <Route path={`servers/:serverId`} element={<ServerLayout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoutes>
+                <CreateChannelModal />
+              </ProtectedRoutes>
+            }
+          />
+        </Route>
+
+        <Route
+          path="servers/:serverId/channels/:channelType/:channelId"
+          element={<ChannelLayout />}
+        >
+          <Route
+            index
+            element={
+              <ProtectedRoutes>
+                <CreateChannelModal />
+                <ChannelPage />
               </ProtectedRoutes>
             }
           />
