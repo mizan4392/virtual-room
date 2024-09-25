@@ -36,7 +36,7 @@ registerEnumType(ChannelType, {
 @ObjectType()
 export class Server {
   @Field(() => ID)
-  id: string;
+  id: number;
   @Field()
   name: string;
   @Field()

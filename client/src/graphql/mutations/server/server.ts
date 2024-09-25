@@ -23,3 +23,13 @@ export const UPDATE_SERVER_WITH_NEW_INVITE_CODE = gql`
     }
   }
 `;
+
+export const UPDATE_SERVER = gql`
+  mutation UpdateServer($input: UpdateServerDto!, $file: Upload) {
+    updateServer(input: $input, file: $file) {
+      id
+      name
+      imageUrl
+    }
+  }
+`;

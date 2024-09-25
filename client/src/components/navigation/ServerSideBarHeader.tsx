@@ -23,6 +23,8 @@ export default function ServerSideBarHeader({
   const isModerator = role === MemberRole.Moderator || isAdmin;
 
   const inviteModal = useModal("InviteModal");
+  const updateServerModal = useModal("UpdateServer");
+  const createChannelModal = useModal("CreateChannel");
   return (
     <Menu shadow="md" width={rem(300)}>
       <Menu.Target>
@@ -41,10 +43,20 @@ export default function ServerSideBarHeader({
           Invite people
         </Menu.Item>
         {isAdmin && (
-          <Menu.Item rightSection={<IconSettings />}>Update server</Menu.Item>
+          <Menu.Item
+            rightSection={<IconSettings />}
+            onClick={updateServerModal.openModal}
+          >
+            Update server
+          </Menu.Item>
         )}
         {isModerator && (
-          <Menu.Item rightSection={<IconEyePlus />}>Create channel</Menu.Item>
+          <Menu.Item
+            rightSection={<IconEyePlus />}
+            onClick={createChannelModal.openModal}
+          >
+            Create channel
+          </Menu.Item>
         )}
         {isModerator && <Divider />}
         {isAdmin && (
