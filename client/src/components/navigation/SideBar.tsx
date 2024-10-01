@@ -74,7 +74,7 @@ export default function SideBar() {
             radius={100}
             onClick={openModal}
           >
-            <IconPlus radius={100} />
+            <IconPlus radius={100} size={50} />
           </Button>
         </Center>
         <Center>

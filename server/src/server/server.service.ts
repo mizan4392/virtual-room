@@ -168,4 +168,87 @@ export class ServerService {
     }
     return server;
   }
+
+  async leaveServer(serverId: number, email: string) {
+    const profile = await this.prismaService.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!profile) {
+      throw new BadRequestException('Profile not found');
+    }
+    return this.prismaService.server.update({
+      where: {
+        id: serverId,
+      },
+      data: {
+        members: {
+          deleteMany: {
+            profileId: profile.id,
+          },
+        },
+      },
+    });
+  }
+
+  async deleteServer(serverId: number, email: string) {
+    const profile = await this.prismaService.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!profile) {
+      throw new BadRequestException('Profile not found');
+    }
+    const server = await this.prismaService.server.findUnique({
+      where: {
+        id: serverId,
+        members: {
+          some: {
+            profileId: profile.id,
+            role: {
+              in: [MemberRole.ADMIN],
+            },
+          },
+        },
+      },
+    });
+    if (!server) {
+      throw new BadRequestException('Server not found');
+    }
+    return this.prismaService.server.delete({
+      where: {
+        id: server.id,
+      },
+    });
+  }
+
+  async deleteChannelFromServer(channelId: number, email: string) {
+    const profile = await this.prismaService.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!profile) {
+      throw new BadRequestException('Profile not found');
+    }
+    const channel = await this.prismaService.channel.findUnique({
+      where: {
+        id: channelId,
+        profileId: profile.id,
+        NOT: {
+          name: 'general',
+        },
+      },
+    });
+    if (!channel) {
+      throw new BadRequestException('Channel not found');
+    }
+    return this.prismaService.channel.delete({
+      where: {
+        id: channelId,
+      },
+    });
+  }
 }

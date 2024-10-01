@@ -91,6 +91,45 @@ export class ServerResolver {
     }
   }
 
+  @Mutation(() => Server)
+  async leaveServer(
+    @Args('serverId', { nullable: true }) serverId: number,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.leaveServer(serverId, ctx.req.profile?.email);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async deleteServer(
+    @Args('serverId', { nullable: true }) serverId: number,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.deleteServer(serverId, ctx.req.profile?.email);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async deleteChannelFromServer(
+    @Args('channelId', { nullable: true }) channelId: number,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.deleteChannelFromServer(
+        channelId,
+        ctx.req.profile?.email,
+      );
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
+  }
+
   private async storeImageAndGetUrl(file: GraphQLUpload) {
     const { createReadStream, filename } = await file;
     const uniqueFilename = `${uuidv4()}_${filename}`;

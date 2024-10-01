@@ -13,10 +13,10 @@ export class Channel {
   type: ChannelType;
 
   @Field({ nullable: true })
-  createdAt: string;
+  createdAt?: string;
 
   @Field({ nullable: true })
-  updatedAt: string;
+  updatedAt?: string;
 
   @Field(() => [Member], { nullable: true })
   members: Member[];
@@ -51,10 +51,10 @@ export class Server {
 
   @Field(() => [Member], { nullable: 'itemsAndList' })
   members: Member[];
-  @Field()
-  createdAt: string;
-  @Field()
-  updatedAt: string;
-  @Field(() => [Channel], { nullable: 'itemsAndList' })
+  @Field({ nullable: true })
+  createdAt?: string;
+  @Field({ nullable: true })
+  updatedAt?: string;
+  @Field(() => [Channel])
   channels: Channel[];
 }

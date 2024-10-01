@@ -59,6 +59,9 @@ type Mutation {
   createChannel(input: CreateChannelOnServerDto!): Server!
   createProfile(input: CreateProfileDto!): Profile!
   createServer(file: Upload, input: CreateServerDto!): Server!
+  deleteChannelFromServer(channelId: Float): Server!
+  deleteServer(serverId: Float): Server!
+  leaveServer(serverId: Float): Server!
   updateServer(file: Upload, input: UpdateServerDto!): Server!
   updateServerWithNewInviteCode(serverId: Float!): Server!
 }
@@ -79,8 +82,8 @@ type Query {
 }
 
 type Server {
-  channels: [Channel]
-  createdAt: String!
+  channels: [Channel!]!
+  createdAt: String
   id: ID!
   imageUrl: String!
   inviteCode: String
@@ -88,7 +91,7 @@ type Server {
   name: String!
   profile: Profile
   profileId: Float!
-  updatedAt: String!
+  updatedAt: String
 }
 
 input UpdateServerDto {

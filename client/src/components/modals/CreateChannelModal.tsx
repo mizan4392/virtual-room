@@ -20,10 +20,16 @@ import {
 } from "../../gql/graphql";
 import { CREATE_CHANNEL } from "../../graphql/mutations/server/channel";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function CreateChannelModal() {
   const { isOpen, closeModal } = useModal("CreateChannel");
   const { channelType } = useGeneralStore();
+
+  useEffect(() => {
+    if (!channelType) return;
+    form.setFieldValue("type", channelType);
+  }, [channelType]);
   const form = useForm({
     initialValues: {
       name: "",

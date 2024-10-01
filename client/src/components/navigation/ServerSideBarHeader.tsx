@@ -25,6 +25,8 @@ export default function ServerSideBarHeader({
   const inviteModal = useModal("InviteModal");
   const updateServerModal = useModal("UpdateServer");
   const createChannelModal = useModal("CreateChannel");
+  const deleteServerModal = useModal("DeleteServer");
+
   return (
     <Menu shadow="md" width={rem(300)}>
       <Menu.Target>
@@ -60,7 +62,11 @@ export default function ServerSideBarHeader({
         )}
         {isModerator && <Divider />}
         {isAdmin && (
-          <Menu.Item color="red" rightSection={<IconTrash />}>
+          <Menu.Item
+            color="red"
+            rightSection={<IconTrash />}
+            onClick={deleteServerModal.openModal}
+          >
             <Text>Delete server</Text>{" "}
           </Menu.Item>
         )}

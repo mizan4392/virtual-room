@@ -15,9 +15,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation CreateProfile($input: CreateProfileDto!) {\n    createProfile(input: $input) {\n      id\n      imageUrl\n      name\n      email\n    }\n  }\n": types.CreateProfileDocument,
     "\n  mutation CreateChannel($input: CreateChannelOnServerDto!) {\n    createChannel(input: $input) {\n      id\n      name\n      members {\n        id\n      }\n      imageUrl\n    }\n  }\n": types.CreateChannelDocument,
+    "\n  mutation DeleteChannelFromServer($channelId: Float) {\n    deleteChannelFromServer(channelId: $channelId) {\n      id\n    }\n  }\n": types.DeleteChannelFromServerDocument,
     "\n  mutation CreateServer($input: CreateServerDto!, $file: Upload!) {\n    createServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n      members {\n        id\n      }\n    }\n  }\n": types.CreateServerDocument,
     "\n  mutation UpdateServerWithNewInviteCode($serverId: Float!) {\n    updateServerWithNewInviteCode(serverId: $serverId) {\n      id\n      name\n      imageUrl\n      inviteCode\n    }\n  }\n": types.UpdateServerWithNewInviteCodeDocument,
     "\n  mutation UpdateServer($input: UpdateServerDto!, $file: Upload) {\n    updateServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n    }\n  }\n": types.UpdateServerDocument,
+    "\n  mutation LeaveServer($serverId: Float) {\n    leaveServer(serverId: $serverId) {\n      id\n    }\n  }\n": types.LeaveServerDocument,
+    "\n  mutation DeleteServer($serverId: Float) {\n    deleteServer(serverId: $serverId) {\n      id\n    }\n  }\n": types.DeleteServerDocument,
     "\n  query GetServers {\n    getServers {\n      id\n      name\n      imageUrl\n    }\n  }\n": types.GetServersDocument,
     "\n  query GetServer($id: Float!) {\n    getServer(id: $id) {\n      id\n      profileId\n      name\n      imageUrl\n      inviteCode\n      members {\n        id\n        role\n        profileId\n        profile {\n          id\n          name\n          imageUrl\n          email\n        }\n      }\n      channels {\n        id\n        name\n        type\n        members {\n          id\n          role\n          profileId\n          profile {\n            id\n            name\n            imageUrl\n            email\n          }\n        }\n      }\n      profile {\n        id\n        name\n        imageUrl\n        email\n      }\n    }\n  }\n": types.GetServerDocument,
 };
@@ -47,6 +50,10 @@ export function graphql(source: "\n  mutation CreateChannel($input: CreateChanne
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation DeleteChannelFromServer($channelId: Float) {\n    deleteChannelFromServer(channelId: $channelId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteChannelFromServer($channelId: Float) {\n    deleteChannelFromServer(channelId: $channelId) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  mutation CreateServer($input: CreateServerDto!, $file: Upload!) {\n    createServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n      members {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreateServer($input: CreateServerDto!, $file: Upload!) {\n    createServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n      members {\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -56,6 +63,14 @@ export function graphql(source: "\n  mutation UpdateServerWithNewInviteCode($ser
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateServer($input: UpdateServerDto!, $file: Upload) {\n    updateServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateServer($input: UpdateServerDto!, $file: Upload) {\n    updateServer(input: $input, file: $file) {\n      id\n      name\n      imageUrl\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation LeaveServer($serverId: Float) {\n    leaveServer(serverId: $serverId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation LeaveServer($serverId: Float) {\n    leaveServer(serverId: $serverId) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteServer($serverId: Float) {\n    deleteServer(serverId: $serverId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteServer($serverId: Float) {\n    deleteServer(serverId: $serverId) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -5,7 +5,11 @@ export type Modal =
   | "CreateServer"
   | "CreateChannel"
   | "InviteModal"
-  | "UpdateServer";
+  | "UpdateServer"
+  | "ManageMembers"
+  | "DeleteChannel"
+  | "UpdateChannel"
+  | "DeleteServer";
 
 interface GeneralStore {
   activeModal: Modal | null;
@@ -14,6 +18,9 @@ interface GeneralStore {
   toggleDower: () => void;
   channelType: ChannelType;
   setChannelType: (channelType: ChannelType) => void;
+
+  channelToBeDeletedOrUpdated: number | null;
+  setChannelToBeDeletedOrUpdated: (channelId: number | null) => void;
 }
 
 export const useGeneralStore = create<GeneralStore>()(
@@ -25,6 +32,10 @@ export const useGeneralStore = create<GeneralStore>()(
       toggleDower: () => set((state) => ({ drawerOpen: !state.drawerOpen })),
       channelType: ChannelType.Text,
       setChannelType: (channelType) => set({ channelType }),
+      channelToBeDeletedOrUpdated: null,
+      setChannelToBeDeletedOrUpdated(channelId) {
+        set({ channelToBeDeletedOrUpdated: channelId });
+      },
     }),
 
     {

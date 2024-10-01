@@ -12,3 +12,11 @@ export const CREATE_CHANNEL = gql`
     }
   }
 `;
+
+export const DELETE_CHANNEL_FROM_SERVER = gql`
+  mutation DeleteChannelFromServer($channelId: Float) {
+    deleteChannelFromServer(channelId: $channelId) {
+      id
+    }
+  }
+`;

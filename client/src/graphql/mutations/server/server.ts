@@ -33,3 +33,19 @@ export const UPDATE_SERVER = gql`
     }
   }
 `;
+
+export const LEAVE_SERVER = gql`
+  mutation LeaveServer($serverId: Float) {
+    leaveServer(serverId: $serverId) {
+      id
+    }
+  }
+`;
+
+export const DELETE_SERVER = gql`
+  mutation DeleteServer($serverId: Float) {
+    deleteServer(serverId: $serverId) {
+      id
+    }
+  }
+`;

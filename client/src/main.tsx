@@ -26,6 +26,8 @@ import ChannelPage from "./pages/ChannelPage.tsx";
 import ChannelLayout from "./layout/ChannelLayout.tsx";
 import InviteModal from "./components/modals/InviteModal.tsx";
 import UpdateServerModal from "./components/modals/UpdateServerModal.tsx";
+import DeleteChannelModal from "./components/modals/DeleteChannelModal.tsx";
+import DeleteServerModal from "./components/modals/DeleteServerModal.tsx";
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -76,6 +78,8 @@ const RouterComponent = () => {
             index
             element={
               <ProtectedRoutes>
+                <DeleteServerModal />
+                <DeleteChannelModal />
                 <CreateChannelModal />
                 <InviteModal />
                 <ChannelPage />
