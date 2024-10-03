@@ -18,6 +18,15 @@ enum ChannelType {
   VIDEO
 }
 
+type Conversation {
+  id: Float!
+  memberOne: Member!
+  memberOneId: Float!
+  memberTwo: Member!
+  memberTwoId: Float!
+  messages: [DirectMessage!]!
+}
+
 input CreateChannelOnServerDto {
   name: String!
   serverId: Float!
@@ -33,6 +42,19 @@ input CreateProfileDto {
 input CreateServerDto {
   name: String!
   profileId: Float!
+}
+
+type DirectMessage {
+  content: String!
+  conversation: Conversation!
+  conversationId: Float!
+  createdAt: String!
+  deleted: Boolean!
+  fileUrl: String
+  id: ID!
+  member: Member!
+  memberId: Float!
+  updatedAt: String!
 }
 
 type Member {
@@ -55,16 +77,40 @@ enum MemberRole {
   MODERATOR
 }
 
+type Message {
+  channel: Channel!
+  content: String!
+  createdAt: String!
+  deleted: Boolean!
+  fileUrl: String
+  id: ID!
+  member: Member!
+  updatedAt: String!
+}
+
+type MessageResult {
+  message: MessageUnion!
+}
+
+union MessageUnion = DirectMessage | Message
+
+type MessagesResult {
+  messages: [MessageUnion!]!
+}
+
 type Mutation {
   addMemberToServer(inviteCode: String!): Server!
   changeMemberRole(memberId: Float, role: String!): Server!
   createChannel(input: CreateChannelOnServerDto!): Server!
+  createMessage(channelId: Float, content: String, conversationId: Float, currentProfileId: Float, file: Upload): MessageResult!
   createProfile(input: CreateProfileDto!): Profile!
   createServer(file: Upload, input: CreateServerDto!): Server!
   deleteChannelFromServer(channelId: Float): Server!
   deleteMember(memberId: Float): Server!
+  deleteMessage(channelId: Float, conversationId: Float, messageId: Float!): MessageResult!
   deleteServer(serverId: Float): Server!
   leaveServer(serverId: Float): Server!
+  updateMessage(channelId: Float, content: String!, conversationId: Float, messageId: Float!, serverId: Float!): MessageResult!
   updateServer(file: Upload, input: UpdateServerDto!): Server!
   updateServerWithNewInviteCode(serverId: Float!): Server!
 }
@@ -79,6 +125,9 @@ type Profile {
 }
 
 type Query {
+  getCurrentMember(profileId: Float, serverId: Float): Member!
+  getMember(memberId: Float, serverId: Float): Member!
+  getMessages(channelId: Float, conversationId: Float): MessagesResult!
   getProfileById(profileId: Float!): Profile!
   getServer(id: Float): Server!
   getServers: [Server!]!

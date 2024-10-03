@@ -6,5 +6,6 @@ import { JwtService } from '@nestjs/jwt';
 
 @Module({
   providers: [ProfileResolver, ProfileService, PrismaService, JwtService],
+  exports: [ProfileService],
 })
 export class ProfileModule {}

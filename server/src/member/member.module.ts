@@ -4,5 +4,6 @@ import { MemberResolver } from './member.resolver';
 
 @Module({
   providers: [MemberResolver, MemberService],
+  exports: [MemberService],
 })
 export class MemberModule {}

@@ -175,7 +175,7 @@ export class ServerResolver {
     }
   }
 
-  private async storeImageAndGetUrl(file: GraphQLUpload) {
+  async storeImageAndGetUrl(file: GraphQLUpload) {
     const { createReadStream, filename } = await file;
     const uniqueFilename = `${uuidv4()}_${filename}`;
     const path = join(process.cwd(), 'public', 'images', uniqueFilename);

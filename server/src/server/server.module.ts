@@ -4,5 +4,6 @@ import { ServerResolver } from './server.resolver';
 
 @Module({
   providers: [ServerResolver, ServerService],
+  exports: [ServerResolver],
 })
 export class ServerModule {}

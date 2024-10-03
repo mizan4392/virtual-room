@@ -10,6 +10,7 @@ import { ProfileModule } from './profile/profile.module';
 import { MemberModule } from './member/member.module';
 
 import { GlobalModule } from './global.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { GlobalModule } from './global.module';
     ServerModule,
     ProfileModule,
     MemberModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
