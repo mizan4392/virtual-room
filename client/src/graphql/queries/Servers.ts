@@ -10,15 +10,71 @@ export const GET_SERVERS = gql`
   }
 `;
 
+// export const GET_SERVER = gql`
+//   query GetServer($id: Float!) {
+//     getServer(id: $id) {
+//       id
+//       profileId
+//       name
+//       imageUrl
+//       inviteCode
+//       members {
+//         id
+//         role
+//         profileId
+//         profile {
+//           id
+//           name
+//           imageUrl
+//           email
+//         }
+//       }
+//       channels {
+//         id
+//         name
+//         type
+//         members {
+//           id
+//           role
+//           profileId
+//           profile {
+//             id
+//             name
+//             imageUrl
+//             email
+//           }
+//         }
+//       }
+//       profile {
+//         id
+//         name
+//         imageUrl
+//         email
+//       }
+//     }
+//   }
+// `;
+
 export const GET_SERVER = gql`
-  query GetServer($id: Float!) {
+  query GetServer($id: Float) {
     getServer(id: $id) {
       id
       profileId
       name
       imageUrl
       inviteCode
+      channels {
+        id
+        type
+        name
+      }
+
       members {
+        id
+
+        server {
+          id
+        }
         id
         role
         profileId
@@ -27,22 +83,6 @@ export const GET_SERVER = gql`
           name
           imageUrl
           email
-        }
-      }
-      channels {
-        id
-        name
-        type
-        members {
-          id
-          role
-          profileId
-          profile {
-            id
-            name
-            imageUrl
-            email
-          }
         }
       }
       profile {

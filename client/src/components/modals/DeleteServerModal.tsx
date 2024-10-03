@@ -1,12 +1,10 @@
 import { Button, Flex, Modal, Text } from "@mantine/core";
 import { useModal } from "../../hooks/useModal";
 import { useServer } from "../../hooks/graphql/server/useServer";
-import { useGeneralStore } from "../../stores/general.store";
+
 import { useMutation } from "@apollo/client";
-import { DELETE_CHANNEL_FROM_SERVER } from "../../graphql/mutations/server/channel";
+
 import {
-  DeleteChannelFromServerMutation,
-  DeleteChannelFromServerMutationVariables,
   DeleteServerMutation,
   DeleteServerMutationVariables,
 } from "../../gql/graphql";
@@ -16,7 +14,6 @@ import { DELETE_SERVER } from "../../graphql/mutations/server/server";
 
 export default function DeleteServerModal() {
   const { isOpen, closeModal } = useModal("DeleteServer");
-  const { channelToBeDeletedOrUpdated } = useGeneralStore();
 
   const { server } = useServer();
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import { IconPlus } from "@tabler/icons-react";
 
 type ServerSideBarSectionProps = {
   sectionType: "CHANNELS" | "MEMBERS";
-  channelType: ChannelType;
+  channelType?: ChannelType;
   role: MemberRole;
   label: string;
 };
@@ -22,7 +22,7 @@ export default function ServerSideBarSection({
   const manageMembersModal = useModal("ManageMembers");
   const { setChannelType } = useGeneralStore();
   const handleOnchange = () => {
-    setChannelType(channelType);
+    setChannelType(channelType || ChannelType.Text);
     channelModal.openModal();
   };
   if (role !== MemberRole.Guest && sectionType === "CHANNELS") {

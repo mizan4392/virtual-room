@@ -130,6 +130,21 @@ export class ServerResolver {
     }
   }
 
+  @Mutation(() => Server)
+  async addMemberToServer(
+    @Args('inviteCode') inviteCode: string,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.addMemberToServer(
+        inviteCode,
+        ctx.req?.profile.email,
+      );
+    } catch (err) {
+      throw new BadRequestException(err.message);
+    }
+  }
+
   private async storeImageAndGetUrl(file: GraphQLUpload) {
     const { createReadStream, filename } = await file;
     const uniqueFilename = `${uuidv4()}_${filename}`;

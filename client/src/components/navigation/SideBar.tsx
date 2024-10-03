@@ -47,9 +47,9 @@ export default function SideBar() {
   const [active, setActive] = useState(0);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { openModal } = useModal("CreateServer");
+  const joinServer = useModal("JoinServer");
 
-  const { servers, loading }: { servers: Server[]; loading: boolean } =
-    useServers();
+  const { servers }: { servers: Server[]; loading: boolean } = useServers();
 
   const navigate = useNavigate();
 
@@ -78,7 +78,12 @@ export default function SideBar() {
           </Button>
         </Center>
         <Center>
-          <Button className={classes.link} variant="subtle" radius={100}>
+          <Button
+            className={classes.link}
+            variant="subtle"
+            radius={100}
+            onClick={joinServer.openModal}
+          >
             <IconArrowsJoin className={classes.icon} radius={100} />
           </Button>
         </Center>

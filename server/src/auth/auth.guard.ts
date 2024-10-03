@@ -18,6 +18,7 @@ export class GraphQLAuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException('Unauthorized');
     }
+
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         publicKey: process.env.JWT_PUBLIC_KEY,

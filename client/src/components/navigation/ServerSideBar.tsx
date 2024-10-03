@@ -7,10 +7,11 @@ import { ScrollArea, Stack } from "@mantine/core";
 import ServerSideBarSection from "./ServerSideBarSection";
 import ServerChannels from "./ServerChannels";
 import { ChannelType } from "../../gql/graphql";
+import ServerMembers from "./ServerMembers";
 export default function ServerSideBar() {
   const navigate = useNavigate();
   const { serverId, memberId, channelId } = useParams();
-  const { textChannels, server, role, audioChannels, videoChannels } =
+  const { textChannels, server, role, audioChannels, videoChannels, members } =
     useServer();
   const [activeChannelId, setActiveChannelId] = useState<number | null>(null);
   const [activeMemberId, setActiveMemberId] = useState<number | null>(null);
@@ -97,6 +98,25 @@ export default function ServerSideBar() {
               role={role}
               server={server}
               isActive={activeChannelId === Number(channel?.id)}
+            />
+          ))}
+        </Stack>
+
+        {!!members?.length && (
+          <ServerSideBarSection
+            sectionType="MEMBERS"
+            role={role}
+            label="Member"
+          />
+        )}
+
+        <Stack>
+          {members?.map((member) => (
+            <ServerMembers
+              key={member?.id}
+              member={member}
+              isActive={activeMemberId === Number(member?.id)}
+              server={server}
             />
           ))}
         </Stack>

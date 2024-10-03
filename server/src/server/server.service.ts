@@ -72,7 +72,12 @@ export class ServerService {
       },
       include: {
         channels: true,
-        members: true,
+        members: {
+          include: {
+            profile: true,
+            server: true,
+          },
+        },
       },
     });
 
@@ -248,6 +253,47 @@ export class ServerService {
     return this.prismaService.channel.delete({
       where: {
         id: channelId,
+      },
+    });
+  }
+
+  async addMemberToServer(inviteCode: string, email: string) {
+    const server = await this.prismaService.server.findUnique({
+      where: {
+        inviteCode,
+      },
+    });
+    if (!server) throw new Error('Server not found');
+
+    const profile = await this.prismaService.profile.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!profile) throw new Error('Profile not found');
+
+    const member = await this.prismaService.member.findFirst({
+      where: {
+        serverId: server.id,
+        profileId: profile.id,
+      },
+    });
+
+    if (member) return new Error('Member already exists');
+
+    return this.prismaService.server.update({
+      where: {
+        inviteCode,
+      },
+      data: {
+        members: {
+          create: [
+            {
+              profileId: profile.id,
+            },
+          ],
+        },
       },
     });
   }

@@ -24,7 +24,6 @@ export const useServer = () => {
       navigate("/");
     },
   });
-
   const textChannels =
     server?.getServer?.channels?.filter(
       (channel) => channel?.type === ChannelType.Text
@@ -40,9 +39,10 @@ export const useServer = () => {
       (channel) => channel?.type === ChannelType.Video
     ) || [];
 
-  const members = server?.getServer.members?.find(
-    (member) => member?.profileId !== profileId
-  );
+  const members =
+    server?.getServer.members?.filter(
+      (member) => member?.profileId !== profileId
+    ) || [];
 
   const role = server?.getServer.members?.find(
     (member) => member?.profileId.toString() === profileId

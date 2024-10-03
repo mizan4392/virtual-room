@@ -49,3 +49,11 @@ export const DELETE_SERVER = gql`
     }
   }
 `;
+
+export const ADD_MEMBER = gql`
+  mutation AddMember($inviteCode: String!) {
+    addMemberToServer(inviteCode: $inviteCode) {
+      id
+    }
+  }
+`;

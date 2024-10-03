@@ -33,7 +33,7 @@ function RootLayout() {
             input: {
               email: session.user.emailAddresses[0].emailAddress,
               imageUrl: session.user.imageUrl,
-              name: session.user.username || "",
+              name: session.user.fullName || "",
             },
           },
           onCompleted: (data) => {

@@ -6,7 +6,7 @@ import { Server } from 'src/server/server.types';
 @ObjectType()
 export class Member {
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => Profile, { nullable: true })
   profile: Profile;
@@ -39,7 +39,7 @@ export class Member {
 export enum MemberRole {
   ADMIN = 'ADMIN',
   MODERATOR = 'MODERATOR',
-  GUEST = 'GUEST',
+  GUEST = 'GEST',
 }
 
 registerEnumType(MemberRole, {
