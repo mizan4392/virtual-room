@@ -3,7 +3,7 @@ import { ChannelType, MemberRole } from "../../gql/graphql";
 import { useModal } from "../../hooks/useModal";
 import { useGeneralStore } from "../../stores/general.store";
 import { Flex, Tooltip, Text } from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconSettings } from "@tabler/icons-react";
 
 type ServerSideBarSectionProps = {
   sectionType: "CHANNELS" | "MEMBERS";
@@ -25,7 +25,7 @@ export default function ServerSideBarSection({
     setChannelType(channelType || ChannelType.Text);
     channelModal.openModal();
   };
-  if (role !== MemberRole.Guest && sectionType === "CHANNELS") {
+  if (role !== MemberRole.Gest && sectionType === "CHANNELS") {
     return (
       <Tooltip label="Create channel" withArrow onClick={handleOnchange}>
         <Flex p={"md"} style={{ cursor: "pointer" }}>
@@ -48,10 +48,20 @@ export default function ServerSideBarSection({
         <Flex p={"md"} style={{ cursor: "pointer" }}>
           <Flex justify={"space-between"} w={"100%"}>
             <Text fw={700}>{label}</Text>
-            <IconPlus size={20} />
+            <IconSettings />
           </Flex>
         </Flex>
       </Tooltip>
+    );
+  }
+
+  if (role !== MemberRole.Admin && sectionType === "MEMBERS") {
+    return (
+      <Flex p="md">
+        <Flex justify={"space-between"} w="100%">
+          <Text fw={700}>{label}</Text>
+        </Flex>
+      </Flex>
     );
   }
   return <div>ServerSideBarSection</div>;

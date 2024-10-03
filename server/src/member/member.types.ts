@@ -39,7 +39,7 @@ export class Member {
 export enum MemberRole {
   ADMIN = 'ADMIN',
   MODERATOR = 'MODERATOR',
-  GUEST = 'GEST',
+  GEST = 'GEST',
 }
 
 registerEnumType(MemberRole, {

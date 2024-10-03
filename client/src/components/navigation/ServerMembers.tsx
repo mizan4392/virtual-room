@@ -1,17 +1,15 @@
-import { Member, MemberRole, Profile } from "../../gql/graphql";
+import { Member, MemberRole } from "../../gql/graphql";
 import { Image, NavLink, rem } from "@mantine/core";
 import { IconCrown, IconShieldCheck } from "@tabler/icons-react";
 
-import { useNavigate } from "react-router-dom";
-
 type ServerMemberProps = {
-  member: Member & { profile: Profile };
+  member: Member;
 
   isActive: boolean;
 };
 
 const roleIconMap = {
-  [MemberRole.Guest]: null,
+  [MemberRole.Gest]: null,
   [MemberRole.Moderator]: <IconShieldCheck size="15" />,
   [MemberRole.Admin]: <IconCrown size="15" />,
 };

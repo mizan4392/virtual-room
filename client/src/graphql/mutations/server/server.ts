@@ -57,3 +57,38 @@ export const ADD_MEMBER = gql`
     }
   }
 `;
+
+export const CHANGE_MEMBER_ROLE = gql`
+  mutation ChangeMemberRole($memberId: Float, $role: String!) {
+    changeMemberRole(memberId: $memberId, role: $role) {
+      id
+      name
+      imageUrl
+      members {
+        id
+        role
+      }
+    }
+  }
+`;
+
+export const DELETE_MEMBER = gql`
+  mutation DeleteMember($memberId: Float) {
+    deleteMember(memberId: $memberId) {
+      id
+      name
+      imageUrl
+      members {
+        id
+        role
+        profileId
+        profile {
+          id
+          name
+          imageUrl
+          email
+        }
+      }
+    }
+  }
+`;

@@ -14,6 +14,7 @@ import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
 import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import { MemberRole } from 'src/member/member.types';
 @Resolver('Server')
 @UseGuards(GraphQLAuthGuard)
 export class ServerResolver {
@@ -140,6 +141,35 @@ export class ServerResolver {
         inviteCode,
         ctx.req?.profile.email,
       );
+    } catch (err) {
+      throw new BadRequestException(err.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async changeMemberRole(
+    @Args('memberId', { nullable: true }) memberId: number,
+    @Args('role') role: MemberRole,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.changeMemberRole(
+        memberId,
+        role,
+        ctx.req?.profile.email,
+      );
+    } catch (err) {
+      throw new BadRequestException(err.message);
+    }
+  }
+
+  @Mutation(() => Server)
+  async deleteMember(
+    @Args('memberId', { nullable: true }) memberId: number,
+    @Context() ctx: { req: Request },
+  ) {
+    try {
+      return this.serverService.deleteMember(memberId, ctx.req?.profile.email);
     } catch (err) {
       throw new BadRequestException(err.message);
     }

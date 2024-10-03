@@ -45,7 +45,7 @@ export default function ServerChannels({
         rightSection={Icon}
         active={isActive}
       >
-        {role !== MemberRole.Guest && (
+        {role !== MemberRole.Gest && (
           <Stack>
             <NavLink
               label="Join"
