@@ -2,6 +2,12 @@ import React from "react";
 import { ChannelType } from "../../../gql/graphql";
 import { useGeneralStore } from "../../../stores/general.store";
 import ChatHeader from "./ChatHeader";
+import { Flex, Paper, rem } from "@mantine/core";
+import ChatMessages from "../../chat/ChatMessages";
+import TextInputSection from "../../chat/TextInputSection";
+import { useParams } from "react-router-dom";
+import { useMessageData } from "../../../hooks/graphql/server/message/useMessageData";
+import { useMediaQuery } from "@mantine/hooks";
 
 function ChatWindow({
   chatName,
@@ -13,14 +19,15 @@ function ChatWindow({
   channelType?: ChannelType | undefined;
 }) {
   const { drawerOpen, toggleDower } = useGeneralStore((state) => state);
-  //   const { conversationId } = useParams<{ conversationId: string }>()
-  //   const { createMessage, messages, channelId } = useMessageData()
+  const { conversationId } = useParams<{ conversationId: string }>();
+  const { createMessage, messages, channelId } = useMessageData();
   //   useMessageCreatedSubscription()
-  //   const isSmallerThanLg = useMediaQuery("(max-width: 1350px)")
+  const isSmallerThanLg = useMediaQuery("(max-width: 1350px)");
+
   return (
     <>
       <ChatHeader opened={drawerOpen} toggle={toggleDower} type={chatType} />
-      {/* <Flex
+      <Flex
         justify={"center"}
         align={"center"}
         direction="column"
@@ -44,51 +51,7 @@ function ChatWindow({
                 </Flex>
               </Flex>
             )}
-            {channelType === ChannelType.Video && (
-              <>
-                <Flex w={"100%"}>
-                  <MediaRoom chatId={chatName} audio={true} video={false} />
-                </Flex>
-                {!isSmallerThanLg && !drawerOpen && (
-                  <Flex direction="column" mr="md" w="100%">
-                    <ChatMessages messages={messages} channelId={channelId} />
-                    <Flex
-                      mt="md"
-                      ml="md"
-                      px="md"
-                      w="100%"
-                      align="center"
-                      justify={"start"}
-                    >
-                      <TextInputSection
-                        conversationId={Number(conversationId)}
-                        channelId={channelId}
-                        createMessage={createMessage}
-                      />
-                    </Flex>
-                  </Flex>
-                )}
-              </>
-            )}
-            {channelType === ChannelType.Audio && (
-              <>
-                <Flex>
-                  <MediaRoom chatId={chatName} audio={true} video={false} />
-                </Flex>
-                {!isSmallerThanLg && (
-                  <Flex direction="column" mr="md" w="100%">
-                    <ChatMessages messages={messages} channelId={channelId} />
-                    <Flex mt="md" w="100%" align="center" justify={"center"}>
-                      <TextInputSection
-                        conversationId={Number(conversationId)}
-                        channelId={channelId}
-                        createMessage={createMessage}
-                      />
-                    </Flex>
-                  </Flex>
-                )}
-              </>
-            )}
+
             {chatType === "conversation" && (
               <>
                 <Flex direction="column" mr="md" w="100%">
@@ -105,7 +68,7 @@ function ChatWindow({
             )}
           </Flex>
         </Paper>
-      </Flex> */}
+      </Flex>
     </>
   );
 }

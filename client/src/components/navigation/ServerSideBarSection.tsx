@@ -64,5 +64,5 @@ export default function ServerSideBarSection({
       </Flex>
     );
   }
-  return <div>ServerSideBarSection</div>;
+  return <div></div>;
 }

@@ -10,7 +10,8 @@ export type Modal =
   | "DeleteChannel"
   | "UpdateChannel"
   | "DeleteServer"
-  | "JoinServer";
+  | "JoinServer"
+  | "UpdateMessage";
 
 interface GeneralStore {
   activeModal: Modal | null;

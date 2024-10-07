@@ -30,6 +30,7 @@ import DeleteChannelModal from "./components/modals/DeleteChannelModal.tsx";
 import DeleteServerModal from "./components/modals/DeleteServerModal.tsx";
 import JoinServerModal from "./components/modals/JoinServerModal.tsx";
 import ManageMemberModal from "./components/modals/ManageMembersModal.tsx";
+import UpdateMessageModal from "./components/modals/chat/UpdateMessageModal.tsx";
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -80,6 +81,7 @@ const RouterComponent = () => {
             index
             element={
               <ProtectedRoutes>
+                <UpdateMessageModal />
                 <ManageMemberModal />
                 <JoinServerModal />
                 <DeleteServerModal />
