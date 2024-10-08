@@ -104,7 +104,9 @@ export default function SideBar() {
             <IconSun radius={100} />
           )}
         </Button>
-        <UserButton />
+        <div>
+          <UserButton />
+        </div>
       </Stack>
     </nav>
   );
